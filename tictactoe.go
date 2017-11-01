@@ -1,12 +1,13 @@
 package tictactoe
 
-// import "fmt"
+import "strings"
 
 func foo(num int) int {
 	return num * num
 }
 
-func IsValidBoard(board string) bool {
+func IsValidBoard(b string) bool {
+	board := strings.ToUpper(b)
 
 	if !hasValidCharsOnly(board) {
 		return false
