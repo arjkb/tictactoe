@@ -20,6 +20,23 @@ func IsValidBoard(b string) bool {
 	return true
 }
 
+// func IsWinnable(board string, ch rune, indices []int) bool, error  {
+//   var count int
+//
+//   for _, index := range indices  {
+//     if index < 0 || index > 10  {}
+//     if board[index] == ch {
+//       count++
+//     }
+//   }
+//
+//   if count == 2 {
+//     return true
+//   } else {
+//     return false
+//   }
+// }
+
 func hasValidCharsOnly(board string) bool {
 	for i, ch := range board {
 		if i == 3 || i == 7 {
@@ -33,4 +50,14 @@ func hasValidCharsOnly(board string) bool {
 		}
 	}
 	return true
+}
+
+func isValidIndex(i int) bool  {
+  // 0123456789X
+  // ---|---|---
+  if i >= 0 && i <= 10  {
+    return true
+  } else {
+    return false
+  }
 }
