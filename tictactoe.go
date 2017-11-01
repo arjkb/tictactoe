@@ -6,7 +6,7 @@ func foo(num int) int {
 	return num * num
 }
 
-func isValidBoard(board string) bool {
+func IsValidBoard(board string) bool {
 
 	if !hasValidCharsOnly(board) {
 		return false
