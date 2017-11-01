@@ -2,7 +2,7 @@ package tictactoe
 
 import "testing"
 
-func TestIsValid_valid(t *testing.T) {
+func TestIsValid(t *testing.T) {
 	validBoards := [...]string{"X--|XXX|OXO",
 		"X--|XXX|OXO",
 		"XXX|XXX|XXX",
@@ -10,8 +10,16 @@ func TestIsValid_valid(t *testing.T) {
 		"---|---|---"}
 
 	for _, validBoard := range validBoards {
-		if !isValidBoard(validBoard) {
-			t.Error(" Fails for valid board ", validBoard)
+		if !IsValidBoard(validBoard) {
+			t.Error(" returns invalid for valid board ", validBoard)
+		}
+	}
+
+	invalidBoards := [...]string{"abc",
+		"X--|XXX|OXo"}
+	for _, invalidBoard := range invalidBoards {
+		if IsValidBoard(invalidBoard) {
+			t.Error(" returns valid for invalid board ", invalidBoard)
 		}
 	}
 }
