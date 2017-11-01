@@ -1,6 +1,9 @@
 package tictactoe
 
-import "strings"
+import (
+  "strings"
+  "fmt"
+)
 
 func foo(num int) int {
 	return num * num
@@ -20,22 +23,25 @@ func IsValidBoard(b string) bool {
 	return true
 }
 
-// func IsWinnable(board string, ch rune, indices []int) bool, error  {
-//   var count int
-//
-//   for _, index := range indices  {
-//     if index < 0 || index > 10  {}
-//     if board[index] == ch {
-//       count++
-//     }
-//   }
-//
-//   if count == 2 {
-//     return true
-//   } else {
-//     return false
-//   }
-// }
+func IsWinnable(board string, ch byte, indices []int) (bool, error)  {
+  var count int
+
+  for _, index := range indices  {
+    if !isValidIndex(index) {
+      return false, fmt.Errorf("IsWinnable: index %d is outside the board")
+    }
+
+    if board[index] == ch {
+      count++
+    }
+  }
+
+  if count == 2 {
+    return true, nil
+  } else {
+    return false, nil
+  }
+}
 
 func hasValidCharsOnly(board string) bool {
 	for i, ch := range board {
