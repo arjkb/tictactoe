@@ -31,3 +31,32 @@ func TestIsValid(t *testing.T) {
 		}
 	}
 }
+
+// func TestIsWinnable(t *testing.T)  {
+//   winnable_board := "X--|X--|-X-",
+//
+//   indices := [[0,1,2], [0,4,8], [2,4,6]]
+//
+//
+// }
+
+func TestIsValidIndex(t *testing.T)  {
+  indexes := map[int]bool  {
+    -10:false,
+    -1: false,
+    0:true,
+    1:true,
+    5:true,
+    9:true,
+    10:true,
+    11:false,
+    15:false,
+  }
+
+  for key, expected := range indexes  {
+    if isValidIndex(key) != expected  {
+      t.Errorf(" isValidIndex[%d] expected:%v, actual:%v", key, expected, isValidIndex(key))
+    }
+  }
+
+}
