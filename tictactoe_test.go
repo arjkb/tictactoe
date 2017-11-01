@@ -10,3 +10,13 @@ func TestFoo(t *testing.T)  {
   }
 
 }
+
+func TestIsValid(t *testing.T)  {
+  validBoards := [...]string{"X--|XXX|OXO", "X--|XXX|OXO"}
+
+  for _, validBoard := range validBoards {
+    if !isValidBoard(validBoard) {
+      t.Error(" Fails for valid board ", validBoard)
+    }
+  }
+}
