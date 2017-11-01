@@ -2,7 +2,7 @@ package tictactoe
 
 import "testing"
 
-func TestIsValid(t *testing.T) {
+func TestIsValid_valid(t *testing.T) {
 	validBoards := [...]string{"X--|XXX|OXO",
 		"X--|XXX|OXO",
 		"XXX|XXX|XXX",
