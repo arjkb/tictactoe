@@ -6,10 +6,10 @@ func TestIsValid(t *testing.T) {
 	validBoards := [...]string{"X--|XXX|OXO",
 		"X--|XXX|OXO",
 		"XXX|XXX|XXX",
-    "x--|oxo|oox",
+		"x--|oxo|oox",
 		"---|---|---",
 		"X--|XXX|OXo",
-    "OOO|OOO|OOO",
+		"OOO|OOO|OOO",
 	}
 
 	for _, validBoard := range validBoards {
@@ -22,8 +22,8 @@ func TestIsValid(t *testing.T) {
 		"X--XXXOXO",
 		"XXX-XXX-XXX",
 		"O-|-XX|XXO",
-    "||",
-  }
+		"||",
+	}
 
 	for _, invalidBoard := range invalidBoards {
 		if IsValidBoard(invalidBoard) {
