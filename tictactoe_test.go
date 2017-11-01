@@ -32,13 +32,17 @@ func TestIsValid(t *testing.T) {
 	}
 }
 
-// func TestIsWinnable(t *testing.T)  {
-//   winnable_board := "X--|X--|-X-",
-//
-//   indices := [[0,1,2], [0,4,8], [2,4,6]]
-//
-//
-// }
+func TestIsWinnable(t *testing.T)  {
+  winnable_board := "X--|---|X--"
+
+  winning_indices := []int{0,4,8}
+
+  win, _ := IsWinnable(winnable_board, 'X', winning_indices);
+
+  if !win {
+    t.Error(" Doesn't show win for %v, %v", winnable_board, winning_indices)
+  }
+}
 
 func TestIsValidIndex(t *testing.T)  {
   indexes := map[int]bool  {
