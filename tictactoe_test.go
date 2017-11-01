@@ -16,7 +16,12 @@ func TestIsValid(t *testing.T) {
 	}
 
 	invalidBoards := [...]string{"abc",
-		"X--|XXX|OXo"}
+		"X--|XXX|OXo",
+		"X--XXXOXO",
+    "x--|oxo|oox",
+    "XXX-XXX-XXX",
+		"O-|-XX|XXO"}
+
 	for _, invalidBoard := range invalidBoards {
 		if IsValidBoard(invalidBoard) {
 			t.Error(" returns valid for invalid board ", invalidBoard)
