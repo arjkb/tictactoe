@@ -5,10 +5,6 @@ import (
 	"strings"
 )
 
-func foo(num int) int {
-	return num * num
-}
-
 func IsValidBoard(b string) bool {
 	board := strings.ToUpper(b)
 
