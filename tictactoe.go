@@ -23,7 +23,7 @@ func IsValidBoard(b string) bool {
 	return true
 }
 
-func IsWinnable(board string, ch byte, indices []int) (bool, error) {
+func IsWinnable(board string, ch byte, indices [3]int) (bool, error) {
 	var count int
 
 	for _, index := range indices {
