@@ -43,6 +43,18 @@ func IsWinnable(board string, ch byte, indices [3]int) (bool, error) {
 	}
 }
 
+func getOpponentSymbol(ch byte) byte {
+	switch ch {
+	case 'X':
+		return 'O'
+	case 'O':
+		return 'X'
+	default:
+		return '-'
+	}
+
+}
+
 func hasValidCharsOnly(board string) bool {
 	for i, ch := range board {
 		if i == 3 || i == 7 {
