@@ -19,14 +19,14 @@ func IsValidBoard(b string) bool {
 	return true
 }
 
-func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, error) {
+func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, []int, error) {
 	var count_mysym, count_oppsym int
 
 	opp_symbol := getOpponentSymbol(my_symbol)
 
 	for _, index := range indices {
 		if !isValidIndex(index) {
-			return false, fmt.Errorf("IsWinnable: index %d is outside the board")
+			return false, nil, fmt.Errorf("IsWinnable: index %d is outside the board")
 		}
 
 		switch board[index] {
@@ -38,9 +38,9 @@ func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, error) {
 	}
 
 	if count_mysym == 2 && count_oppsym == 0 {
-		return true, nil
+		return true, indices[:], nil
 	}
-	return false, nil
+	return false, nil, nil
 }
 
 func getOpponentSymbol(ch byte) byte {
