@@ -94,9 +94,36 @@ func TestHasWon(t *testing.T)  {
 		"--O|-O-|O--":'O',
 	}
 
+	wrongSymbolBoards := map[string]byte	{
+		"X--|X--|X--":'O',
+		"-X-|-X-|-X-":'O',
+		"--X|--X|--X":'O',
+		"XXX|---|---":'O',
+		"---|XXX|---":'O',
+		"---|---|XXX":'O',
+		"X--|-X-|--X":'O',
+		"--X|-X-|X--":'O',
+
+		"O--|O--|O--":'X',
+		"-O-|-O-|-O-":'X',
+		"--O|--O|--O":'X',
+		"OOO|---|---":'X',
+		"---|OOO|---":'X',
+		"---|---|OOO":'X',
+		"O--|-O-|--O":'X',
+		"--O|-O-|O--":'X',
+	}
+
 	for board, symbol := range winning_boards	{
 		won := HasWon(board, symbol)
 		if won != true	{
+			t.Errorf("HasWon(%v, %q) returns %v", board, symbol, won)
+		}
+	}
+
+	for board, symbol := range wrongSymbolBoards	{
+		won := HasWon(board, symbol)
+		if won == true	{
 			t.Errorf("HasWon(%v, %q) returns %v", board, symbol, won)
 		}
 	}
