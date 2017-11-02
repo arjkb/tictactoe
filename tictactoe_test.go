@@ -92,6 +92,9 @@ func TestHasWon(t *testing.T)  {
 		"---|---|OOO":'O',
 		"O--|-O-|--O":'O',
 		"--O|-O-|O--":'O',
+
+		"XXX|XXX|XXX":'X',
+		"OOO|OOO|OOO":'O',
 	}
 
 	wrongSymbolBoards := map[string]byte	{
