@@ -76,27 +76,21 @@ func TestIsWinnable_WinReturn(t *testing.T)	{
 func TestHasWon(t *testing.T)  {
 	winning_boards := map[string]byte	{
 		"X--|X--|X--":'X',
-		"O--|O--|O--":'O',
-
 		"-X-|-X-|-X-":'X',
-		"-O-|-O-|-O-":'O',
-
 		"--X|--X|--X":'X',
-		"--O|--O|--O":'O',
-
 		"XXX|---|---":'X',
-		"OOO|---|---":'O',
-
 		"---|XXX|---":'X',
-		"---|OOO|---":'O',
-
 		"---|---|XXX":'X',
-		"---|---|OOO":'O',
-
 		"X--|-X-|--X":'X',
-		"O--|-O-|--O":'O',
-
 		"--X|-X-|X--":'X',
+
+		"O--|O--|O--":'O',
+		"-O-|-O-|-O-":'O',
+		"--O|--O|--O":'O',
+		"OOO|---|---":'O',
+		"---|OOO|---":'O',
+		"---|---|OOO":'O',
+		"O--|-O-|--O":'O',
 		"--O|-O-|O--":'O',
 	}
 
@@ -106,6 +100,7 @@ func TestHasWon(t *testing.T)  {
 			t.Errorf("HasWon(%v, %q) returns %v", board, symbol, won)
 		}
 	}
+
 }
 
 // func TestIsWinnable_All(t *testing.T)  {
