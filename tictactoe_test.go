@@ -48,7 +48,7 @@ func TestIsWinnable(t *testing.T) {
 	for idxTriplet, expected := range indices {
 		actual, _ := IsWinnable(winnable_board, 'X', idxTriplet)
 		if expected != actual {
-			t.Errorf("IsWinnable(%v, %v, %v) expected: %v, actual: %v", winnable_board, 'X', idxTriplet, expected, actual)
+			t.Errorf("IsWinnable(%v, %q, %v) expected: %v, actual: %v", winnable_board, 'X', idxTriplet, expected, actual)
 		}
 	}
 }
