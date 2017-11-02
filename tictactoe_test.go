@@ -76,6 +76,7 @@ func TestIsWinnable_WinReturn(t *testing.T) {
 func TestHasWon(t *testing.T) {
 	winningBoards := map[string]byte{
 		"X--|X--|X--": 'X',
+		"XOO|XOO|XOO": 'X',
 		"-X-|-X-|-X-": 'X',
 		"--X|--X|--X": 'X',
 		"XXX|---|---": 'X',
@@ -86,6 +87,7 @@ func TestHasWon(t *testing.T) {
 
 		"O--|O--|O--": 'O',
 		"-O-|-O-|-O-": 'O',
+		"XOX|XOX|XOX": 'O',
 		"--O|--O|--O": 'O',
 		"OOO|---|---": 'O',
 		"---|OOO|---": 'O',
