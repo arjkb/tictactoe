@@ -112,3 +112,24 @@ func TestIsIndicesDifferent(t *testing.T)  {
     }
   }
 }
+
+func TestGetOpponentSymbol(t *testing.T)  {
+
+  symbolTable := map[byte]byte  {
+    'X':'O',
+    'O':'X',
+    'x':'-',
+    'o':'-',
+    'k':'-',
+    '-':'-',
+  }
+
+  for sym, exp := range symbolTable {
+    act := getOpponentSymbol(sym)
+
+    if exp != act {
+      t.Errorf("getOpponentSymbol(%q) expected:%q actual:%q", sym, exp, act)
+    }
+
+  }
+}
