@@ -52,7 +52,6 @@ func getOpponentSymbol(ch byte) byte {
 	default:
 		return '-'
 	}
-
 }
 
 func hasValidCharsOnly(board string) bool {
