@@ -23,24 +23,28 @@ func IsValidBoard(b string) bool {
 	return true
 }
 
-func IsWinnable(board string, ch byte, indices [3]int) (bool, error) {
-	var count int
+func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, error) {
+	var count_mysym, count_oppsym int
+
+	opp_symbol := getOpponentSymbol(my_symbol)
 
 	for _, index := range indices {
 		if !isValidIndex(index) {
 			return false, fmt.Errorf("IsWinnable: index %d is outside the board")
 		}
 
-		if board[index] == ch {
-			count++
+		switch board[index] {
+		case my_symbol:
+			count_mysym++
+		case opp_symbol:
+			count_oppsym++
 		}
 	}
 
-	if count == 2 {
+	if count_mysym == 2 && count_oppsym == 0 {
 		return true, nil
-	} else {
-		return false, nil
 	}
+	return false, nil
 }
 
 func getOpponentSymbol(ch byte) byte {
