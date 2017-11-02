@@ -114,6 +114,12 @@ func TestHasWon(t *testing.T)  {
 		"--O|-O-|O--":'X',
 	}
 
+	nonWinningBoards := map[string]byte	{
+		"-X-|---|-X-":'X',
+		"-X-|-O-|-X-":'X',
+		"-X-|--X|-X-":'X',
+	}
+
 	for board, symbol := range winningBoards	{
 		won := HasWon(board, symbol)
 		if won != true	{
@@ -128,6 +134,12 @@ func TestHasWon(t *testing.T)  {
 		}
 	}
 
+	for board, symbol := range nonWinningBoards	{
+		won := HasWon(board, symbol)
+		if won == true	{
+			t.Errorf("HasWon(%v, %q) returns %v", board, symbol, won)
+		}
+	}
 }
 
 // func TestIsWinnable_All(t *testing.T)  {
