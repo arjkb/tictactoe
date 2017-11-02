@@ -1,13 +1,9 @@
 package tictactoe
 
 import (
-  "strings"
-  "fmt"
+	"fmt"
+	"strings"
 )
-
-func foo(num int) int {
-	return num * num
-}
 
 func IsValidBoard(b string) bool {
 	board := strings.ToUpper(b)
@@ -23,24 +19,39 @@ func IsValidBoard(b string) bool {
 	return true
 }
 
-func IsWinnable(board string, ch byte, indices []int) (bool, error)  {
-  var count int
+func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, error) {
+	var count_mysym, count_oppsym int
 
-  for _, index := range indices  {
-    if !isValidIndex(index) {
-      return false, fmt.Errorf("IsWinnable: index %d is outside the board")
-    }
+	opp_symbol := getOpponentSymbol(my_symbol)
 
-    if board[index] == ch {
-      count++
-    }
-  }
+	for _, index := range indices {
+		if !isValidIndex(index) {
+			return false, fmt.Errorf("IsWinnable: index %d is outside the board")
+		}
 
-  if count == 2 {
-    return true, nil
-  } else {
-    return false, nil
-  }
+		switch board[index] {
+		case my_symbol:
+			count_mysym++
+		case opp_symbol:
+			count_oppsym++
+		}
+	}
+
+	if count_mysym == 2 && count_oppsym == 0 {
+		return true, nil
+	}
+	return false, nil
+}
+
+func getOpponentSymbol(ch byte) byte {
+	switch ch {
+	case 'X':
+		return 'O'
+	case 'O':
+		return 'X'
+	default:
+		return '-'
+	}
 }
 
 func hasValidCharsOnly(board string) bool {
@@ -58,12 +69,20 @@ func hasValidCharsOnly(board string) bool {
 	return true
 }
 
-func isValidIndex(i int) bool  {
-  // 0123456789X
-  // ---|---|---
-  if i >= 0 && i <= 10  {
-    return true
-  } else {
-    return false
-  }
+func isValidIndex(i int) bool {
+	// 0123456789X
+	// ---|---|---
+	if i >= 0 && i <= 10 {
+		return true
+	} else {
+		return false
+	}
+}
+
+func isIndicesDifferent(idx [3]int) bool {
+	if idx[0] == idx[1] || idx[0] == idx[2] || idx[1] == idx[2] {
+		return false
+	} else {
+		return true
+	}
 }
