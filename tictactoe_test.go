@@ -33,12 +33,13 @@ func TestIsValid(t *testing.T) {
 }
 
 func TestIsWinnable(t *testing.T)  {
-  winnable_board := "X--|-O-|X--"
+  winnable_board := "X-X|-OO|X-X"
 
   // stores indices; true indicates winnable, false otherwise
   indices := map[[3]int]bool  {
     {1,2,3}:false,
     {0,4,8}:true,
+    {2,6,10}:false,
     {5,5,5}:false,
     {3,4,5}:false,
     {0,0,0}:false,
@@ -69,6 +70,8 @@ func TestIsWinnable(t *testing.T)  {
 //     {0, 5, 10},
 //     {2, 5, 8},
 //   }
+//
+//
 //
 // }
 
