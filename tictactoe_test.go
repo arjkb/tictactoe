@@ -173,28 +173,6 @@ func TestHasWon(t *testing.T) {
 	}
 }
 
-// func TestIsWinnable_All(t *testing.T)  {
-//   row_indices := [][]int  {
-//     {0,1,2},
-//     {4,5,6},
-//     {8,9,10},
-//   }
-//
-//   col_indices := [][]int {
-//     {0, 4, 8},
-//     {1, 5, 9},
-//     {2, 6, 10},
-//   }
-//
-//   diag_indices := [][]int {
-//     {0, 5, 10},
-//     {2, 5, 8},
-//   }
-//
-//
-//
-// }
-
 func TestIsValidIndex(t *testing.T) {
 	indexes := map[int]bool{
 		-10: false,
