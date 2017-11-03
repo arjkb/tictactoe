@@ -45,7 +45,7 @@ func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, []int, erro
 
 func MakeWinMove(board string, move [3]int, symbol byte) (string, error) {
 	boardBytes := []byte(board)
-	
+
 	winnable, _, _ := IsWinnable(board, symbol, move)
 	if !winnable {
 		return "", fmt.Errorf("MakeWinMove() IsWinnable(%v, %q, %v)=%v", board, symbol, move, winnable)
@@ -61,24 +61,24 @@ func MakeWinMove(board string, move [3]int, symbol byte) (string, error) {
 	return string(boardBytes), nil
 }
 
-// func BlockWinMove(board string, move [3]int, symbol byte) (string, error)  {
-// 	var err error
-// 	oppSym := getOpponentSymbol(symbol)
-//
-// 	winnable, _, _ := IsWinnable(board, symbol, move)
-// 	if !winnable {
-// 		return "", fmt.Errorf("BlockWinMove() IsWinnable(%v, %q, %v)=%v", board, symbol, move, winnable)
-// 	}
-//
-// 	for _, pos := range move	{
-// 		board, err = makeMove(board, pos, oppSym)
-// 		if err != nil	{
-// 			fmt.Println(err)
-// 			return "", fmt.Errorf("BlockWinMove(): %v", err)
-// 		}
-// 	}
-// 	return board, nil
-// }
+func BlockWinMove(board string, move [3]int, symbol byte) (string, error)  {
+	boardBytes := []byte(board)
+
+	// check if the caller's opponent can win
+	winnable, _, _ := IsWinnable(board, getOpponentSymbol(symbol), move)
+	if !winnable {
+		return "", fmt.Errorf("BlockWinMove() IsWinnable(%v, %q, %v)=%v", board, symbol, move, winnable)
+	}
+
+	pos, err := getEmptyPos(board, move[:])
+	if err != nil	{
+		return "", fmt.Errorf("BlockWinMove(): %v", err)
+	}
+
+	boardBytes[pos] = symbol
+
+	return string(boardBytes), nil
+}
 
 func makeMove(board string, pos int, symbol byte) (string, error)	{
 	// var changed bool

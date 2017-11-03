@@ -93,7 +93,7 @@ func TestBlockWinMove(t *testing.T)  {
 	winIndices := [3]int{0, 4, 8}
 
 	const EXPECTED = "X--|X--|O--"
-	finalBoard, _ := BlockWinMove(winBoard, winIndices, 'X')
+	finalBoard, _ := BlockWinMove(winBoard, winIndices, 'O')
 	if strings.Compare(finalBoard, EXPECTED) != 0 {
 		t.Errorf("BlockWinMove(%v, %v %q) expected:%v, actual:%v", winBoard, winIndices, 'X', EXPECTED, finalBoard)
 	}
