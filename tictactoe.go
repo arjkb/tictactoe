@@ -41,14 +41,14 @@ func IsValidBoard(b string) bool {
 	return true
 }
 
-func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, []int, error) {
+func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, error) {
 	var count_mysym, count_oppsym int
 
 	opp_symbol := getOpponentSymbol(my_symbol)
 
 	for _, index := range indices {
 		if !isValidIndex(index) {
-			return false, nil, fmt.Errorf("IsWinnable: index %d is outside the board")
+			return false,  fmt.Errorf("IsWinnable: index %d is outside the board")
 		}
 
 		switch board[index] {
@@ -60,10 +60,21 @@ func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, []int, erro
 	}
 
 	if count_mysym == 2 && count_oppsym == 0 {
-		return true, indices[:], nil
+		return true, nil
 	}
-	return false, nil, nil
+	return false, nil
 }
+
+// func CanWinNext(board string, symbol byte) (bool, string)  {
+// 	var parr string
+// 	for _, pslice := range tictactoe.WinPatterns	{
+// 		copy(parr[:],pslice) // convert slice to array
+// 		win, _, _ := tictactoe.IsWinnable(board, symbol, parr)
+// 		if win {
+// 			return
+// 		}
+// 	}
+// }
 
 func GetMoveDifference(prev string, curr string) (int, error) {
 	var diffCount int
@@ -86,7 +97,7 @@ func GetMoveDifference(prev string, curr string) (int, error) {
 func MakeWinMove(board string, move [3]int, symbol byte) (string, error) {
 	boardBytes := []byte(board)
 
-	winnable, _, _ := IsWinnable(board, symbol, move)
+	winnable, _ := IsWinnable(board, symbol, move)
 	if !winnable {
 		return "", fmt.Errorf("MakeWinMove() IsWinnable(%v, %q, %v)=%v", board, symbol, move, winnable)
 	}
@@ -105,7 +116,7 @@ func BlockWinMove(board string, move [3]int, symbol byte) (string, error) {
 	boardBytes := []byte(board)
 
 	// check if the caller's opponent can win
-	winnable, _, _ := IsWinnable(board, getOpponentSymbol(symbol), move)
+	winnable, _ := IsWinnable(board, getOpponentSymbol(symbol), move)
 	if !winnable {
 		return "", fmt.Errorf("BlockWinMove() IsWinnable(%v, %q, %v)=%v", board, symbol, move, winnable)
 	}
