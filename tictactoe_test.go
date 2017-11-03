@@ -71,6 +71,36 @@ func TestIsWinnable(t *testing.T) {
 	}
 }
 
+func TestCanWinNext(t *testing.T)  {
+	var emptyArray [3]int
+	tests := []struct	{
+		brd string
+		sym byte
+		ptrn [3]int
+		want bool
+	}	{
+			{"X-X|-OO|X-X", 'O', [3]int{4,5,6}, true},
+			{"X-X|-OO|X-X", 'X', [3]int{0,1,2}, true},
+			{"X--|---|X--", 'X', [3]int{0,4,8}, true},
+			{"X--|---|---", 'O', emptyArray, false},
+			{"X--|-X-|---", 'X', [3]int{0,5,10}, true},
+			{"---|-O-|O--", 'O', [3]int{2,5,8}, true},
+	}
+
+	for _, test := range tests	{
+		win, p := CanWinNext(test.brd, test.sym);
+		if win != test.want	{
+			t.Errorf("CanWinNext(%v, %q) want:%v, got:%v", test.brd, test.sym, test.want, win)
+		}
+
+		if win	{
+			if p != test.ptrn	{
+				t.Errorf("CanWinNext(%v, %q) want:%v, got:%v", test.brd, test.sym, test.ptrn, p)
+			}
+		}
+	}
+}
+
 func TestMakeWinMove(t *testing.T) {
 	winBoard := "X--|X--|---"
 	winIndices := [3]int{0, 4, 8}
