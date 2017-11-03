@@ -93,17 +93,6 @@ func MakeRandomMove(board string, move []int, symbol byte) (string, error) {
 	return string(boardBytes), nil
 }
 
-func makeMove(board string, pos int, symbol byte) (string, error)	{
-	// var changed bool
-	boardBytes := []byte(board)
-	if boardBytes[pos] != '-'	&& boardBytes[pos] != symbol {
-		// error: opponent has played at this square
-		return "", fmt.Errorf("makeMove() Board:%v pos:%b not empty. Can't make move.", board, pos)
-	}
-	boardBytes[pos] = symbol
-	return string(boardBytes), nil
-}
-
 func getEmptyPos(board string, indices []int) (int, error) {
 	for _, index := range indices	{
 		if board[index] == '-'	{
