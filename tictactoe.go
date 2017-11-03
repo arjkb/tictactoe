@@ -5,6 +5,26 @@ import (
 	"strings"
 )
 
+var WinPatterns [][]int
+
+func init()  {
+	WinPatterns = [][]int{
+		// horizontals
+		{0, 1, 2},
+		{4, 5, 6},
+		{8, 9, 10},
+
+		// verticals
+		{0, 4, 8},
+		{1, 5, 9},
+		{2, 6, 10},
+
+		// diagonals
+		{0, 5, 10},
+		{2, 5, 8},
+	}
+}
+
 func GetEmptyBoard() string {
 	var emptyBoard string = "---|---|---"
 	return emptyBoard
@@ -126,23 +146,8 @@ func getEmptyPos(board string, indices []int) (int, error) {
 func HasWon(b string, symbol byte) bool {
 	//check if somebody has won
 
-	patterns := [][]int{
-		// horizontals
-		{0, 1, 2},
-		{4, 5, 6},
-		{8, 9, 10},
-
-		// verticals
-		{0, 4, 8},
-		{1, 5, 9},
-		{2, 6, 10},
-
-		// diagonals
-		{0, 5, 10},
-		{2, 5, 8},
-	}
-
-	for _, index := range patterns {
+	for _, index := range WinPatterns {
+		// fmt.Println(index)
 		if b[index[0]] == symbol && b[index[1]] == symbol && b[index[2]] == symbol {
 			// won!
 			return true
