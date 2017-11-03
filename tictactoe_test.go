@@ -70,47 +70,6 @@ func TestIsWinnable(t *testing.T)  {
 	}
 }
 
-// func TestIsWinnable_Win(t *testing.T) {
-// 	winnable_board := "X-X|-OO|X-X"
-//
-// 	// stores indices; true indicates winnable, false otherwise
-// 	indices := map[[3]int]bool{
-// 		{1, 2, 3}:  false,
-// 		{0, 4, 8}:  true,
-// 		{2, 6, 10}: false,
-// 		{5, 5, 5}:  false,
-// 		{3, 4, 5}:  false,
-// 		{0, 0, 0}:  false,
-// 	}
-//
-// 	for idxTriplet, expected := range indices {
-// 		actual, _, _ := IsWinnable(winnable_board, 'X', idxTriplet)
-// 		if expected != actual {
-// 			t.Errorf("IsWinnable(%v, %q	, %v) expected: %v, actual: %v", winnable_board, 'X', idxTriplet, expected, actual)
-// 		}
-// 	}
-// }
-//
-// func TestIsWinnable_WinReturn(t *testing.T) {
-// 	winnable_board := "X-X|-OO|X-X"
-// 	winning_indices := [3]int{0, 4, 8}
-// 	const EXPECTEDLENGTH = 3
-//
-// 	winstatus, indices, _ := IsWinnable(winnable_board, 'X', winning_indices)
-//
-// 	if winstatus != true {
-// 		t.Errorf("IsWinnable(%v, %q	, %v) expected: %v, actual: %v", winnable_board, 'X', winning_indices, true, winstatus)
-// 	}
-//
-// 	if len(indices) != EXPECTEDLENGTH {
-// 		t.Errorf("IsWinnable(%v, %q, %v) returned slice with len != %d (==%v)", winnable_board, 'X', winning_indices, EXPECTEDLENGTH, len(indices))
-// 	}
-//
-// 	if indices[0] != 0 || indices[1] != 4 || indices[2] != 8 {
-// 		t.Errorf("IsWinnable(%v, %q, %v) expected: %v, actual: %v", winnable_board, 'X', winning_indices, winning_indices, indices)
-// 	}
-// }
-
 func TestMakeWinMove(t *testing.T) {
 	winBoard := "X--|X--|---"
 	winIndices := [3]int{0, 4, 8}
