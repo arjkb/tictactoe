@@ -65,17 +65,17 @@ func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, error) {
 	return false, nil
 }
 
-func CanWinNext(board string, symbol byte) (bool, []int)  {
+func CanWinNext(board string, symbol byte) (bool, [3]int)  {
 	var parr [3]int
 	for _, pslice := range WinPatterns	{
 		copy(parr[:],pslice) // convert slice to array
 		win, _ := IsWinnable(board, symbol, parr)
 		if win {
-			return win, parr[:]
+			return win, parr
 		}
 	}
 
-	return false, nil //can't win
+	return false, parr //can't win
 }
 
 func GetMoveDifference(prev string, curr string) (int, error) {
