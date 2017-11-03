@@ -52,7 +52,7 @@ func MakeWinMove(board string, move [3]int, symbol byte) (string, error) {
 	}
 
 	pos, err := getEmptyPos(board, move[:])
-	if err != nil	{
+	if err != nil {
 		return "", fmt.Errorf("MakeWinMove(): %v", err)
 	}
 
@@ -61,7 +61,7 @@ func MakeWinMove(board string, move [3]int, symbol byte) (string, error) {
 	return string(boardBytes), nil
 }
 
-func BlockWinMove(board string, move [3]int, symbol byte) (string, error)  {
+func BlockWinMove(board string, move [3]int, symbol byte) (string, error) {
 	boardBytes := []byte(board)
 
 	// check if the caller's opponent can win
@@ -71,7 +71,7 @@ func BlockWinMove(board string, move [3]int, symbol byte) (string, error)  {
 	}
 
 	pos, err := getEmptyPos(board, move[:])
-	if err != nil	{
+	if err != nil {
 		return "", fmt.Errorf("BlockWinMove(): %v", err)
 	}
 
@@ -84,7 +84,7 @@ func MakeRandomMove(board string, move []int, symbol byte) (string, error) {
 	boardBytes := []byte(board)
 
 	pos, err := getEmptyPos(board, move)
-	if err != nil	{
+	if err != nil {
 		return "", fmt.Errorf("MakeRandomMove(): %v", err)
 	}
 
@@ -94,8 +94,8 @@ func MakeRandomMove(board string, move []int, symbol byte) (string, error) {
 }
 
 func getEmptyPos(board string, indices []int) (int, error) {
-	for _, index := range indices	{
-		if board[index] == '-'	{
+	for _, index := range indices {
+		if board[index] == '-' {
 			return index, nil
 		}
 	}
