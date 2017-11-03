@@ -5,12 +5,12 @@ import (
 	"testing"
 )
 
-func TestGetEmptyBoard(t *testing.T)  {
+func TestGetEmptyBoard(t *testing.T) {
 	const EXPECTED = "---|---|---"
 
 	empBoard := GetEmptyBoard()
-	if strings.Compare(empBoard, EXPECTED) != 0	{
-		t.Error("GetEmptyBoard() returned %v",empBoard)
+	if strings.Compare(empBoard, EXPECTED) != 0 {
+		t.Error("GetEmptyBoard() returned %v", empBoard)
 	}
 }
 
