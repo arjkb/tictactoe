@@ -5,6 +5,26 @@ import (
 	"strings"
 )
 
+var WinPatterns [][]int
+
+func init() {
+	WinPatterns = [][]int{
+		// horizontals
+		{0, 1, 2},
+		{4, 5, 6},
+		{8, 9, 10},
+
+		// verticals
+		{0, 4, 8},
+		{1, 5, 9},
+		{2, 6, 10},
+
+		// diagonals
+		{0, 5, 10},
+		{2, 5, 8},
+	}
+}
+
 func GetEmptyBoard() string {
 	var emptyBoard string = "---|---|---"
 	return emptyBoard
@@ -12,26 +32,23 @@ func GetEmptyBoard() string {
 
 func IsValidBoard(b string) bool {
 	board := strings.ToUpper(b)
+	const EXPECTEDLENGTH = 9 + 2
 
-	if !hasValidCharsOnly(board) {
-		return false
-	}
-
-	if len(board) != 11 {
+	if !hasValidCharsOnly(board) || len(board) != EXPECTEDLENGTH {
 		return false
 	}
 
 	return true
 }
 
-func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, []int, error) {
+func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, error) {
 	var count_mysym, count_oppsym int
 
 	opp_symbol := getOpponentSymbol(my_symbol)
 
 	for _, index := range indices {
 		if !isValidIndex(index) {
-			return false, nil, fmt.Errorf("IsWinnable: index %d is outside the board")
+			return false, fmt.Errorf("IsWinnable: index %d is outside the board")
 		}
 
 		switch board[index] {
@@ -43,15 +60,44 @@ func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, []int, erro
 	}
 
 	if count_mysym == 2 && count_oppsym == 0 {
-		return true, indices[:], nil
+		return true, nil
 	}
-	return false, nil, nil
+	return false, nil
+}
+
+// func CanWinNext(board string, symbol byte) (bool, string)  {
+// 	var parr string
+// 	for _, pslice := range tictactoe.WinPatterns	{
+// 		copy(parr[:],pslice) // convert slice to array
+// 		win, _, _ := tictactoe.IsWinnable(board, symbol, parr)
+// 		if win {
+// 			return
+// 		}
+// 	}
+// }
+
+func GetMoveDifference(prev string, curr string) (int, error) {
+	var diffCount int
+
+	if !IsValidBoard(prev) {
+		return 0, fmt.Errorf("invalid prev board %v", prev)
+	} else if !IsValidBoard(curr) {
+		return 0, fmt.Errorf("invalid curr board %v", curr)
+	}
+
+	for i := 0; i < len(curr); i++ {
+		if prev[i] != curr[i] {
+			diffCount++
+		}
+	}
+
+	return diffCount, nil
 }
 
 func MakeWinMove(board string, move [3]int, symbol byte) (string, error) {
 	boardBytes := []byte(board)
 
-	winnable, _, _ := IsWinnable(board, symbol, move)
+	winnable, _ := IsWinnable(board, symbol, move)
 	if !winnable {
 		return "", fmt.Errorf("MakeWinMove() IsWinnable(%v, %q, %v)=%v", board, symbol, move, winnable)
 	}
@@ -70,7 +116,7 @@ func BlockWinMove(board string, move [3]int, symbol byte) (string, error) {
 	boardBytes := []byte(board)
 
 	// check if the caller's opponent can win
-	winnable, _, _ := IsWinnable(board, getOpponentSymbol(symbol), move)
+	winnable, _ := IsWinnable(board, getOpponentSymbol(symbol), move)
 	if !winnable {
 		return "", fmt.Errorf("BlockWinMove() IsWinnable(%v, %q, %v)=%v", board, symbol, move, winnable)
 	}
@@ -111,23 +157,8 @@ func getEmptyPos(board string, indices []int) (int, error) {
 func HasWon(b string, symbol byte) bool {
 	//check if somebody has won
 
-	patterns := [][]int{
-		// horizontals
-		{0, 1, 2},
-		{4, 5, 6},
-		{8, 9, 10},
-
-		// verticals
-		{0, 4, 8},
-		{1, 5, 9},
-		{2, 6, 10},
-
-		// diagonals
-		{0, 5, 10},
-		{2, 5, 8},
-	}
-
-	for _, index := range patterns {
+	for _, index := range WinPatterns {
+		// fmt.Println(index)
 		if b[index[0]] == symbol && b[index[1]] == symbol && b[index[2]] == symbol {
 			// won!
 			return true
