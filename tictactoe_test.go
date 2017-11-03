@@ -5,6 +5,15 @@ import (
 	"testing"
 )
 
+func TestGetEmptyBoard(t *testing.T)  {
+	const EXPECTED = "---|---|---"
+
+	empBoard := GetEmptyBoard()
+	if strings.Compare(empBoard, EXPECTED) != 0	{
+		t.Error("GetEmptyBoard() returned %v",empBoard)
+	}
+}
+
 func TestIsValid(t *testing.T) {
 	validBoards := [...]string{"X--|XXX|OXO",
 		"X--|XXX|OXO",

@@ -5,6 +5,11 @@ import (
 	"strings"
 )
 
+func GetEmptyBoard() string  {
+	var emptyBoard string = "---|---|---"
+	return emptyBoard
+}
+
 func IsValidBoard(b string) bool {
 	board := strings.ToUpper(b)
 
