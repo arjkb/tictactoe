@@ -44,30 +44,44 @@ func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, []int, erro
 }
 
 func MakeWinMove(board string, move [3]int, symbol byte) (string, error) {
-	var err error
-
+	boardBytes := []byte(board)
+	
 	winnable, _, _ := IsWinnable(board, symbol, move)
 	if !winnable {
 		return "", fmt.Errorf("MakeWinMove() IsWinnable(%v, %q, %v)=%v", board, symbol, move, winnable)
 	}
 
-	for _, pos := range move	{
-		board, err = makeMove(board, pos, symbol)
-		if err != nil	{
-			return "", fmt.Errorf("MakeWinMove(): %v", err)
-		}
+	pos, err := getEmptyPos(board, move[:])
+	if err != nil	{
+		return "", fmt.Errorf("MakeWinMove(): %v", err)
 	}
-	return board, nil
+
+	boardBytes[pos] = symbol
+
+	return string(boardBytes), nil
 }
 
 // func BlockWinMove(board string, move [3]int, symbol byte) (string, error)  {
-// 	bBytes = []byte(board)
+// 	var err error
+// 	oppSym := getOpponentSymbol(symbol)
 //
 // 	winnable, _, _ := IsWinnable(board, symbol, move)
-// 	return "", nil
+// 	if !winnable {
+// 		return "", fmt.Errorf("BlockWinMove() IsWinnable(%v, %q, %v)=%v", board, symbol, move, winnable)
+// 	}
+//
+// 	for _, pos := range move	{
+// 		board, err = makeMove(board, pos, oppSym)
+// 		if err != nil	{
+// 			fmt.Println(err)
+// 			return "", fmt.Errorf("BlockWinMove(): %v", err)
+// 		}
+// 	}
+// 	return board, nil
 // }
 
 func makeMove(board string, pos int, symbol byte) (string, error)	{
+	// var changed bool
 	boardBytes := []byte(board)
 	if boardBytes[pos] != '-'	&& boardBytes[pos] != symbol {
 		// error: opponent has played at this square
@@ -75,6 +89,16 @@ func makeMove(board string, pos int, symbol byte) (string, error)	{
 	}
 	boardBytes[pos] = symbol
 	return string(boardBytes), nil
+}
+
+func getEmptyPos(board string, indices []int) (int, error) {
+	for _, index := range indices	{
+		if board[index] == '-'	{
+			return index, nil
+		}
+	}
+
+	return 0, fmt.Errorf("getEmptyPos() board:%v. No positions in %v are empty", board, indices)
 }
 
 func HasWon(b string, symbol byte) bool {
