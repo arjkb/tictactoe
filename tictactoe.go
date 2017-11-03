@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func GetEmptyBoard() string  {
+func GetEmptyBoard() string {
 	var emptyBoard string = "---|---|---"
 	return emptyBoard
 }
