@@ -43,6 +43,23 @@ func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, []int, erro
 	return false, nil, nil
 }
 
+func MakeWinMove(board string, move [3]int, symbol byte) (string, error) {
+	bBytes := []byte(board)
+
+	winnable, _, _ := IsWinnable(board, symbol, move)
+	if !winnable {
+		return "", fmt.Errorf("MakeWinMove IsWinnable(%v, %q, %v)=%v", board, symbol, move, winnable)
+	}
+
+	for _, index := range move {
+		if bBytes[index] != '-' && bBytes[index] != symbol {
+			return "", fmt.Errorf(" Board:%v move:%v pos %d is not empty", board, move, index)
+		}
+		bBytes[index] = symbol
+	}
+	return string(bBytes), nil
+}
+
 func HasWon(b string, symbol byte) bool {
 	//check if somebody has won
 
