@@ -88,7 +88,6 @@ func TestMakeWinMove(t *testing.T) {
 	}
 }
 
-<<<<<<< HEAD
 func TestBlockWinMove(t *testing.T)  {
 	winBoard := "X--|X--|---"
 	winIndices := [3]int{0, 4, 8}
@@ -100,8 +99,6 @@ func TestBlockWinMove(t *testing.T)  {
 	}
 }
 
-=======
->>>>>>> 5a38e984473cbc695db6f192e699b2dd32e59d8e
 func TestHasWon(t *testing.T) {
 	winningBoards := map[string]byte{
 		"X--|X--|X--": 'X',
