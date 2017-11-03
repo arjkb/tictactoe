@@ -12,12 +12,9 @@ func GetEmptyBoard() string {
 
 func IsValidBoard(b string) bool {
 	board := strings.ToUpper(b)
+	const EXPECTEDLENGTH = 9 + 2
 
-	if !hasValidCharsOnly(board) {
-		return false
-	}
-
-	if len(board) != 11 {
+	if !hasValidCharsOnly(board) || len(board) != EXPECTEDLENGTH {
 		return false
 	}
 
