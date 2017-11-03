@@ -45,6 +45,24 @@ func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, []int, erro
 	return false, nil, nil
 }
 
+func GetMoveDifference(prev string, curr string) (int, error) {
+	var diffCount int
+
+	if !IsValidBoard(prev)	{
+		return 0, fmt.Errorf("invalid prev board %v", prev)
+	} else if !IsValidBoard(curr) {
+		return 0, fmt.Errorf("invalid curr board %v", curr)
+	}
+
+	for i := 0; i < len(curr); i++ {
+		if prev[i] != curr[i]	{
+			diffCount++
+		}
+	}
+
+	return diffCount, nil
+}
+
 func MakeWinMove(board string, move [3]int, symbol byte) (string, error) {
 	boardBytes := []byte(board)
 

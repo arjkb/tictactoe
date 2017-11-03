@@ -250,3 +250,25 @@ func TestGetOpponentSymbol(t *testing.T) {
 
 	}
 }
+
+func TestGetMoveDifference(t *testing.T)  {
+	var tests = []struct	{
+		prev string
+		curr string
+		want int
+	}	{
+		{"---|---|---", "---|---|---", 0},
+		{"---|---|---", "---|---|---", 0},
+		{"---|---|---", "--X|---|---", 1},
+		{"---|---|---", "--O|---|---", 1},
+		{"---|---|---", "--X|---|--X", 2},
+		{"XX-|---|---", "XX-|-O-|---", 1},
+		{"XX-|---|---", "XO-|-OO|-O-", 4},
+	}
+
+	for _, test := range tests {
+		if got, _ := GetMoveDifference(test.prev, test.curr); got != test.want	{
+			t.Errorf(" GetMoveDifference(%q,%q) = %v", test.prev, test.curr, got)
+		}
+	}
+}
