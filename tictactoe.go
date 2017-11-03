@@ -80,6 +80,19 @@ func BlockWinMove(board string, move [3]int, symbol byte) (string, error)  {
 	return string(boardBytes), nil
 }
 
+func MakeRandomMove(board string, move []int, symbol byte) (string, error) {
+	boardBytes := []byte(board)
+
+	pos, err := getEmptyPos(board, move)
+	if err != nil	{
+		return "", fmt.Errorf("MakeRandomMove(): %v", err)
+	}
+
+	boardBytes[pos] = symbol
+
+	return string(boardBytes), nil
+}
+
 func makeMove(board string, pos int, symbol byte) (string, error)	{
 	// var changed bool
 	boardBytes := []byte(board)

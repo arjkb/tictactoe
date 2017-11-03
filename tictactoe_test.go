@@ -99,6 +99,16 @@ func TestBlockWinMove(t *testing.T)  {
 	}
 }
 
+func TestMakeRandomMove(t *testing.T)  {
+	someBoard := "X--|O--|-O-"
+	var symbol byte = 'X'
+	finalBoard, _ := MakeRandomMove(someBoard, []int{0,1,2,3,4,5,6,7,8,9}, symbol)
+	if strings.Compare(someBoard, finalBoard) == 0	{
+		// no move happened
+		t.Errorf("MakeRandomMove(%v, %q) returned identical %v", someBoard, symbol, finalBoard)
+	}
+}
+
 func TestHasWon(t *testing.T) {
 	winningBoards := map[string]byte{
 		"X--|X--|X--": 'X',
