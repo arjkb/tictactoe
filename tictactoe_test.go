@@ -53,7 +53,14 @@ func TestIsWinnable(t *testing.T)  {
 	} {
 		{"X-X|-OO|X-X", 'O', [3]int{1,2,3}, false},
 		{"X-X|-OO|X-X", 'O', [3]int{4,5,6}, true},
+
+		{"X-X|-OO|X-X", 'X', [3]int{1,2,3}, false},
 		{"X-X|-OO|X-X", 'X', [3]int{0,4,8}, true},
+		{"X-X|-OO|X-X", 'X', [3]int{2,6,10}, false},
+		{"X-X|-OO|X-X", 'X', [3]int{5,5,5}, false},
+		{"X-X|-OO|X-X", 'X', [3]int{3,4,5}, false},
+		{"X-X|-OO|X-X", 'X', [3]int{0,0,0}, false},
+
 	}
 
 	for _, test := range tests	{
