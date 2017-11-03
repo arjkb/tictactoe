@@ -53,6 +53,8 @@ func TestIsWinnable(t *testing.T) {
 	}{
 		{"X-X|-OO|X-X", 'O', [3]int{1, 2, 3}, false},
 		{"X-X|-OO|X-X", 'O', [3]int{4, 5, 6}, true},
+		{"X-X|-OO|X-X", 'X', [3]int{0, 1, 2}, true},
+		{"X-X|-OO|X-X", 'X', [3]int{8,9,10}, true},
 
 		{"X-X|-OO|X-X", 'X', [3]int{1, 2, 3}, false},
 		{"X-X|-OO|X-X", 'X', [3]int{0, 4, 8}, true},
