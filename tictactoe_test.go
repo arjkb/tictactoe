@@ -1,6 +1,9 @@
 package tictactoe
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func TestIsValid(t *testing.T) {
 	validBoards := [...]string{"X--|XXX|OXO",
@@ -70,6 +73,18 @@ func TestIsWinnable_WinReturn(t *testing.T) {
 
 	if indices[0] != 0 || indices[1] != 4 || indices[2] != 8 {
 		t.Errorf("IsWinnable(%v, %q, %v) expected: %v, actual: %v", winnable_board, 'X', winning_indices, winning_indices, indices)
+	}
+}
+
+func TestMakeWinMove(t *testing.T) {
+	winBoard := "X--|X--|---"
+	winIndices := [3]int{0, 4, 8}
+
+	const EXPECTED = "X--|X--|X--"
+
+	finalBoard, _ := MakeWinMove(winBoard, winIndices, 'X')
+	if strings.Compare(finalBoard, EXPECTED) != 0 {
+		t.Errorf("MakeWinMove(%v, %v %q) expected:%v, actual:%v", winBoard, winIndices, 'X', EXPECTED, finalBoard)
 	}
 }
 
