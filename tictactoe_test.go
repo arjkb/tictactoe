@@ -88,7 +88,7 @@ func TestMakeWinMove(t *testing.T) {
 	}
 }
 
-func TestBlockWinMove(t *testing.T)  {
+func TestBlockWinMove(t *testing.T) {
 	winBoard := "X--|X--|---"
 	winIndices := [3]int{0, 4, 8}
 
@@ -96,6 +96,16 @@ func TestBlockWinMove(t *testing.T)  {
 	finalBoard, _ := BlockWinMove(winBoard, winIndices, 'O')
 	if strings.Compare(finalBoard, EXPECTED) != 0 {
 		t.Errorf("BlockWinMove(%v, %v %q) expected:%v, actual:%v", winBoard, winIndices, 'X', EXPECTED, finalBoard)
+	}
+}
+
+func TestMakeRandomMove(t *testing.T) {
+	someBoard := "X--|O--|-O-"
+	var symbol byte = 'X'
+	finalBoard, _ := MakeRandomMove(someBoard, []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, symbol)
+	if strings.Compare(someBoard, finalBoard) == 0 {
+		// no move happened
+		t.Errorf("MakeRandomMove(%v, %q) returned identical %v", someBoard, symbol, finalBoard)
 	}
 }
 
@@ -172,28 +182,6 @@ func TestHasWon(t *testing.T) {
 		}
 	}
 }
-
-// func TestIsWinnable_All(t *testing.T)  {
-//   row_indices := [][]int  {
-//     {0,1,2},
-//     {4,5,6},
-//     {8,9,10},
-//   }
-//
-//   col_indices := [][]int {
-//     {0, 4, 8},
-//     {1, 5, 9},
-//     {2, 6, 10},
-//   }
-//
-//   diag_indices := [][]int {
-//     {0, 5, 10},
-//     {2, 5, 8},
-//   }
-//
-//
-//
-// }
 
 func TestIsValidIndex(t *testing.T) {
 	indexes := map[int]bool{
