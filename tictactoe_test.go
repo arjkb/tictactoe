@@ -1,6 +1,9 @@
 package tictactoe
 
-import "testing"
+import (
+	"strings"
+	"testing"
+)
 
 func TestIsValid(t *testing.T) {
 	validBoards := [...]string{"X--|XXX|OXO",
@@ -53,9 +56,9 @@ func TestIsWinnable_Win(t *testing.T) {
 	}
 }
 
-func TestIsWinnable_WinReturn(t *testing.T)	{
+func TestIsWinnable_WinReturn(t *testing.T) {
 	winnable_board := "X-X|-OO|X-X"
-	winning_indices := [3]int{0,4,8}
+	winning_indices := [3]int{0, 4, 8}
 	const EXPECTEDLENGTH = 3
 
 	winstatus, indices, _ := IsWinnable(winnable_board, 'X', winning_indices)
@@ -68,78 +71,103 @@ func TestIsWinnable_WinReturn(t *testing.T)	{
 		t.Errorf("IsWinnable(%v, %q, %v) returned slice with len != %d (==%v)", winnable_board, 'X', winning_indices, EXPECTEDLENGTH, len(indices))
 	}
 
-	if indices[0] != 0 || indices[1] != 4 || indices[2] != 8	{
+	if indices[0] != 0 || indices[1] != 4 || indices[2] != 8 {
 		t.Errorf("IsWinnable(%v, %q, %v) expected: %v, actual: %v", winnable_board, 'X', winning_indices, winning_indices, indices)
 	}
 }
 
-func TestHasWon(t *testing.T)  {
-	winningBoards := map[string]byte	{
-		"X--|X--|X--":'X',
-		"-X-|-X-|-X-":'X',
-		"--X|--X|--X":'X',
-		"XXX|---|---":'X',
-		"---|XXX|---":'X',
-		"---|---|XXX":'X',
-		"X--|-X-|--X":'X',
-		"--X|-X-|X--":'X',
+func TestMakeWinMove(t *testing.T) {
+	winBoard := "X--|X--|---"
+	winIndices := [3]int{0, 4, 8}
 
-		"O--|O--|O--":'O',
-		"-O-|-O-|-O-":'O',
-		"--O|--O|--O":'O',
-		"OOO|---|---":'O',
-		"---|OOO|---":'O',
-		"---|---|OOO":'O',
-		"O--|-O-|--O":'O',
-		"--O|-O-|O--":'O',
+	const EXPECTED = "X--|X--|X--"
 
-		"XXX|XXX|XXX":'X',
-		"OOO|OOO|OOO":'O',
+	finalBoard, _ := MakeWinMove(winBoard, winIndices, 'X')
+	if strings.Compare(finalBoard, EXPECTED) != 0 {
+		t.Errorf("MakeWinMove(%v, %v %q) expected:%v, actual:%v", winBoard, winIndices, 'X', EXPECTED, finalBoard)
+	}
+}
+
+func TestBlockWinMove(t *testing.T)  {
+	winBoard := "X--|X--|---"
+	winIndices := [3]int{0, 4, 8}
+
+	const EXPECTED = "X--|X--|O--"
+	finalBoard, _ := BlockWinMove(winBoard, winIndices, 'O')
+	if strings.Compare(finalBoard, EXPECTED) != 0 {
+		t.Errorf("BlockWinMove(%v, %v %q) expected:%v, actual:%v", winBoard, winIndices, 'X', EXPECTED, finalBoard)
+	}
+}
+
+func TestHasWon(t *testing.T) {
+	winningBoards := map[string]byte{
+		"X--|X--|X--": 'X',
+		"XOO|XOO|XOO": 'X',
+		"-X-|-X-|-X-": 'X',
+		"--X|--X|--X": 'X',
+		"XXX|---|---": 'X',
+		"---|XXX|---": 'X',
+		"---|---|XXX": 'X',
+		"X--|-X-|--X": 'X',
+		"--X|-X-|X--": 'X',
+
+		"O--|O--|O--": 'O',
+		"-O-|-O-|-O-": 'O',
+		"XOX|XOX|XOX": 'O',
+		"--O|--O|--O": 'O',
+		"OOO|---|---": 'O',
+		"---|OOO|---": 'O',
+		"---|---|OOO": 'O',
+		"O--|-O-|--O": 'O',
+		"--O|-O-|O--": 'O',
+
+		"XXX|XXX|XXX": 'X',
+		"OOO|OOO|OOO": 'O',
 	}
 
-	wrongSymbolBoards := map[string]byte	{
-		"X--|X--|X--":'O',
-		"-X-|-X-|-X-":'O',
-		"--X|--X|--X":'O',
-		"XXX|---|---":'O',
-		"---|XXX|---":'O',
-		"---|---|XXX":'O',
-		"X--|-X-|--X":'O',
-		"--X|-X-|X--":'O',
+	wrongSymbolBoards := map[string]byte{
+		"X--|X--|X--": 'O',
+		"-X-|-X-|-X-": 'O',
+		"--X|--X|--X": 'O',
+		"XXX|---|---": 'O',
+		"---|XXX|---": 'O',
+		"---|---|XXX": 'O',
+		"X--|-X-|--X": 'O',
+		"--X|-X-|X--": 'O',
 
-		"O--|O--|O--":'X',
-		"-O-|-O-|-O-":'X',
-		"--O|--O|--O":'X',
-		"OOO|---|---":'X',
-		"---|OOO|---":'X',
-		"---|---|OOO":'X',
-		"O--|-O-|--O":'X',
-		"--O|-O-|O--":'X',
+		"O--|O--|O--": 'X',
+		"-O-|-O-|-O-": 'X',
+		"--O|--O|--O": 'X',
+		"OOO|---|---": 'X',
+		"---|OOO|---": 'X',
+		"---|---|OOO": 'X',
+		"O--|-O-|--O": 'X',
+		"--O|-O-|O--": 'X',
 	}
 
-	nonWinningBoards := map[string]byte	{
-		"-X-|---|-X-":'X',
-		"-X-|-O-|-X-":'X',
-		"-X-|--X|-X-":'X',
+	nonWinningBoards := map[string]byte{
+		"-X-|---|-X-": 'X',
+		"-X-|-O-|-X-": 'X',
+		"-X-|--X|-X-": 'X',
 	}
 
-	for board, symbol := range winningBoards	{
+	for board, symbol := range winningBoards {
 		won := HasWon(board, symbol)
-		if won != true	{
+		if won != true {
 			t.Errorf("HasWon(%v, %q) returns %v", board, symbol, won)
 		}
 	}
 
-	for board, symbol := range wrongSymbolBoards	{
+	for board, symbol := range wrongSymbolBoards {
 		won := HasWon(board, symbol)
-		if won == true	{
+		if won == true {
 			t.Errorf("HasWon(%v, %q) returns %v", board, symbol, won)
 		}
 	}
 
-	for board, symbol := range nonWinningBoards	{
+	for board, symbol := range nonWinningBoards {
 		won := HasWon(board, symbol)
-		if won == true	{
+		if won == true {
 			t.Errorf("HasWon(%v, %q) returns %v", board, symbol, won)
 		}
 	}
