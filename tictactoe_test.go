@@ -44,28 +44,27 @@ func TestIsValid(t *testing.T) {
 	}
 }
 
-func TestIsWinnable(t *testing.T)  {
-	tests := []struct	{
-		brd string
-		sym byte
+func TestIsWinnable(t *testing.T) {
+	tests := []struct {
+		brd  string
+		sym  byte
 		ptrn [3]int
 		want bool
-	} {
-		{"X-X|-OO|X-X", 'O', [3]int{1,2,3}, false},
-		{"X-X|-OO|X-X", 'O', [3]int{4,5,6}, true},
+	}{
+		{"X-X|-OO|X-X", 'O', [3]int{1, 2, 3}, false},
+		{"X-X|-OO|X-X", 'O', [3]int{4, 5, 6}, true},
 
-		{"X-X|-OO|X-X", 'X', [3]int{1,2,3}, false},
-		{"X-X|-OO|X-X", 'X', [3]int{0,4,8}, true},
-		{"X-X|-OO|X-X", 'X', [3]int{2,6,10}, false},
-		{"X-X|-OO|X-X", 'X', [3]int{5,5,5}, false},
-		{"X-X|-OO|X-X", 'X', [3]int{3,4,5}, false},
-		{"X-X|-OO|X-X", 'X', [3]int{0,0,0}, false},
-
+		{"X-X|-OO|X-X", 'X', [3]int{1, 2, 3}, false},
+		{"X-X|-OO|X-X", 'X', [3]int{0, 4, 8}, true},
+		{"X-X|-OO|X-X", 'X', [3]int{2, 6, 10}, false},
+		{"X-X|-OO|X-X", 'X', [3]int{5, 5, 5}, false},
+		{"X-X|-OO|X-X", 'X', [3]int{3, 4, 5}, false},
+		{"X-X|-OO|X-X", 'X', [3]int{0, 0, 0}, false},
 	}
 
-	for _, test := range tests	{
-		if got, _ := IsWinnable(test.brd, test.sym, test.ptrn); got != test.want	{
-			t.Errorf("IsWinnable(%q, %q, %v) want:%v, got:%v", test.brd,  test.sym, test.ptrn, test.want, got)
+	for _, test := range tests {
+		if got, _ := IsWinnable(test.brd, test.sym, test.ptrn); got != test.want {
+			t.Errorf("IsWinnable(%q, %q, %v) want:%v, got:%v", test.brd, test.sym, test.ptrn, test.want, got)
 		}
 	}
 }
@@ -236,12 +235,12 @@ func TestGetOpponentSymbol(t *testing.T) {
 	}
 }
 
-func TestGetMoveDifference(t *testing.T)  {
-	var tests = []struct	{
+func TestGetMoveDifference(t *testing.T) {
+	var tests = []struct {
 		prev string
 		curr string
 		want int
-	}	{
+	}{
 		{"---|---|---", "---|---|---", 0},
 		{"---|---|---", "---|---|---", 0},
 		{"---|---|---", "--X|---|---", 1},
@@ -252,7 +251,7 @@ func TestGetMoveDifference(t *testing.T)  {
 	}
 
 	for _, test := range tests {
-		if got, _ := GetMoveDifference(test.prev, test.curr); got != test.want	{
+		if got, _ := GetMoveDifference(test.prev, test.curr); got != test.want {
 			t.Errorf(" GetMoveDifference(%q,%q) = %v", test.prev, test.curr, got)
 		}
 	}

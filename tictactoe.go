@@ -7,7 +7,7 @@ import (
 
 var WinPatterns [][]int
 
-func init()  {
+func init() {
 	WinPatterns = [][]int{
 		// horizontals
 		{0, 1, 2},
@@ -48,7 +48,7 @@ func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, error) {
 
 	for _, index := range indices {
 		if !isValidIndex(index) {
-			return false,  fmt.Errorf("IsWinnable: index %d is outside the board")
+			return false, fmt.Errorf("IsWinnable: index %d is outside the board")
 		}
 
 		switch board[index] {
@@ -79,14 +79,14 @@ func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, error) {
 func GetMoveDifference(prev string, curr string) (int, error) {
 	var diffCount int
 
-	if !IsValidBoard(prev)	{
+	if !IsValidBoard(prev) {
 		return 0, fmt.Errorf("invalid prev board %v", prev)
 	} else if !IsValidBoard(curr) {
 		return 0, fmt.Errorf("invalid curr board %v", curr)
 	}
 
 	for i := 0; i < len(curr); i++ {
-		if prev[i] != curr[i]	{
+		if prev[i] != curr[i] {
 			diffCount++
 		}
 	}
