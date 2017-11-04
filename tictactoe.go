@@ -5,7 +5,16 @@ import (
 	"strings"
 )
 
+const (
+	CLIENTWON = "client won"
+	SERVERWON = "server won"
+	CLIENTSYMBOL = 'X'
+	SERVERSYMBOL = 'O'
+	TIE = "tie"
+)
+
 var WinPatterns [][]int
+var AllSquares []int
 
 func init() {
 	WinPatterns = [][]int{
@@ -23,6 +32,8 @@ func init() {
 		{0, 5, 10},
 		{2, 5, 8},
 	}
+
+	AllSquares = []int{0, 1, 2, 4, 5, 6, 8, 9, 10}
 }
 
 func GetEmptyBoard() string {
