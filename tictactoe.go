@@ -157,6 +157,16 @@ func MakeRandomMove(board string, move []int, symbol byte) (string, error) {
 	return string(boardBytes), nil
 }
 
+func getEmptyPosList(board string) []int  {
+	var emptyPos []int
+	for i, ch := range board	{
+		if ch == '-' {
+			emptyPos = append(emptyPos, i)
+		}
+	}
+	return emptyPos
+}
+
 func getEmptyPos(board string, indices []int) (int, error) {
 	for _, index := range indices {
 		if board[index] == '-' {
