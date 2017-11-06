@@ -52,6 +52,7 @@ func TestGetEmptyPos(t *testing.T)  {
 	}	{
 		{"OX-|-OO|X-X", []int{2, 4, 9}},
 		{"---|---|---", []int{0,1,2,4,5,6,8,9,10}},
+		{"-OX|-X-|O--", []int{0, 4, 6, 9, 10}},	
 		{"OXO|XOX|XXO", nil},
 	}
 
