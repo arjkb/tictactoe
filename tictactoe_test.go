@@ -3,6 +3,7 @@ package tictactoe
 import (
 	"strings"
 	"testing"
+	"reflect"
 )
 
 func TestGetEmptyBoard(t *testing.T) {
@@ -40,6 +41,24 @@ func TestIsValid(t *testing.T) {
 	for _, invalidBoard := range invalidBoards {
 		if IsValidBoard(invalidBoard) {
 			t.Error(" returns valid for invalid board ", invalidBoard)
+		}
+	}
+}
+
+func TestGetEmptyPos(t *testing.T)  {
+	tests := []struct	{
+		board string
+		want []int
+	}	{
+		{"OX-|-OO|X-X", []int{2, 4, 9}},
+		{"---|---|---", []int{0,1,2,4,5,6,8,9,10}},
+		{"OXO|XOX|XXO", nil},
+	}
+
+	for _, test := range tests	{
+		got := getEmptyPosList(test.board)
+		if !reflect.DeepEqual(got, test.want)	{
+			t.Errorf("getEmptyPosList(%v) got=%v want=%v", test.board, got, test.want)
 		}
 	}
 }
