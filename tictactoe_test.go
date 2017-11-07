@@ -1,9 +1,9 @@
 package tictactoe
 
 import (
+	"reflect"
 	"strings"
 	"testing"
-	"reflect"
 )
 
 func TestGetEmptyBoard(t *testing.T) {
@@ -45,20 +45,20 @@ func TestIsValid(t *testing.T) {
 	}
 }
 
-func TestGetEmptyPos(t *testing.T)  {
-	tests := []struct	{
+func TestGetEmptyPos(t *testing.T) {
+	tests := []struct {
 		board string
-		want []int
-	}	{
+		want  []int
+	}{
 		{"OX-|-OO|X-X", []int{2, 4, 9}},
-		{"---|---|---", []int{0,1,2,4,5,6,8,9,10}},
-		{"-OX|-X-|O--", []int{0, 4, 6, 9, 10}},	
+		{"---|---|---", []int{0, 1, 2, 4, 5, 6, 8, 9, 10}},
+		{"-OX|-X-|O--", []int{0, 4, 6, 9, 10}},
 		{"OXO|XOX|XXO", nil},
 	}
 
-	for _, test := range tests	{
+	for _, test := range tests {
 		got := getEmptyPosList(test.board)
-		if !reflect.DeepEqual(got, test.want)	{
+		if !reflect.DeepEqual(got, test.want) {
 			t.Errorf("getEmptyPosList(%v) got=%v want=%v", test.board, got, test.want)
 		}
 	}
@@ -74,7 +74,7 @@ func TestIsWinnable(t *testing.T) {
 		{"X-X|-OO|X-X", 'O', [3]int{1, 2, 3}, false},
 		{"X-X|-OO|X-X", 'O', [3]int{4, 5, 6}, true},
 		{"X-X|-OO|X-X", 'X', [3]int{0, 1, 2}, true},
-		{"X-X|-OO|X-X", 'X', [3]int{8,9,10}, true},
+		{"X-X|-OO|X-X", 'X', [3]int{8, 9, 10}, true},
 
 		{"X-X|-OO|X-X", 'X', [3]int{1, 2, 3}, false},
 		{"X-X|-OO|X-X", 'X', [3]int{0, 4, 8}, true},
@@ -91,30 +91,30 @@ func TestIsWinnable(t *testing.T) {
 	}
 }
 
-func TestCanWinNext(t *testing.T)  {
+func TestCanWinNext(t *testing.T) {
 	var emptyArray [3]int
-	tests := []struct	{
-		brd string
-		sym byte
+	tests := []struct {
+		brd  string
+		sym  byte
 		ptrn [3]int
 		want bool
-	}	{
-			{"X-X|-OO|X-X", 'O', [3]int{4,5,6}, true},
-			{"X-X|-OO|X-X", 'X', [3]int{0,1,2}, true},
-			{"X--|---|X--", 'X', [3]int{0,4,8}, true},
-			{"X--|---|---", 'O', emptyArray, false},
-			{"X--|-X-|---", 'X', [3]int{0,5,10}, true},
-			{"---|-O-|O--", 'O', [3]int{2,5,8}, true},
+	}{
+		{"X-X|-OO|X-X", 'O', [3]int{4, 5, 6}, true},
+		{"X-X|-OO|X-X", 'X', [3]int{0, 1, 2}, true},
+		{"X--|---|X--", 'X', [3]int{0, 4, 8}, true},
+		{"X--|---|---", 'O', emptyArray, false},
+		{"X--|-X-|---", 'X', [3]int{0, 5, 10}, true},
+		{"---|-O-|O--", 'O', [3]int{2, 5, 8}, true},
 	}
 
-	for _, test := range tests	{
-		win, p := CanWinNext(test.brd, test.sym);
-		if win != test.want	{
+	for _, test := range tests {
+		win, p := CanWinNext(test.brd, test.sym)
+		if win != test.want {
 			t.Errorf("CanWinNext(%v, %q) want:%v, got:%v", test.brd, test.sym, test.want, win)
 		}
 
-		if win	{
-			if p != test.ptrn	{
+		if win {
+			if p != test.ptrn {
 				t.Errorf("CanWinNext(%v, %q) want:%v, got:%v", test.brd, test.sym, test.ptrn, p)
 			}
 		}
@@ -151,6 +151,23 @@ func TestMakeRandomMove(t *testing.T) {
 	if strings.Compare(someBoard, finalBoard) == 0 {
 		// no move happened
 		t.Errorf("MakeRandomMove(%v, %q) returned identical %v", someBoard, symbol, finalBoard)
+	}
+}
+
+func TestMakeMove(t *testing.T) {
+	tests := []struct {
+		brd  string
+		pos  int
+		sym  byte
+		want string
+	}{
+		{"X-X|-OO|X-X", 4, 'X', "X-X|XOO|X-X"},
+	}
+
+	for _, test := range tests {
+		if got, err := MakeMove(test.brd, test.pos, test.sym); got != test.want {
+			t.Errorf("MakeWinMove(%v, %v, %v) g=%q w=%q : %v", test.brd, test.pos, test.sym, got, test.want, err)
+		}
 	}
 }
 
