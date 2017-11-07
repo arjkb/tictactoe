@@ -90,6 +90,26 @@ func CanWinNext(board string, symbol byte) (bool, [3]int) {
 	return false, parr //can't win
 }
 
+func CanPlayCenter(board string) bool {
+	const CENTER = 5
+	if board[CENTER] == '-' {
+		return true
+	} else {
+		return false
+	}
+}
+
+func MakeMove(board string, pos int, symbol byte) (string, error) {
+	boardBytes := []byte(board)
+
+	if board[pos] != '-' {
+		return "", fmt.Errorf("pos %v is not free", pos)
+	}
+
+	boardBytes[pos] = symbol
+	return string(boardBytes), nil
+}
+
 func GetMoveDifference(prev string, curr string) (int, error) {
 	var diffCount int
 
@@ -152,6 +172,8 @@ func MakeRandomMove(board string, move []int, symbol byte) (string, error) {
 	if emptyPositions == nil {
 		return "", fmt.Errorf("MakeRandomMove(): no empty positions")
 	}
+
+	rand.Seed(200)
 
 	pos := emptyPositions[rand.Intn(len(emptyPositions))]
 	boardBytes[pos] = symbol
