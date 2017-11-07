@@ -195,7 +195,7 @@ func TestIsFree(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		if got := isFree(test.brd, test.pos); got != test.want {
+		if got := IsFree(test.brd, test.pos); got != test.want {
 			t.Errorf("isFree(%v, %v) got=%v, want=%v", test.brd, test.pos, got, test.want)
 		}
 	}

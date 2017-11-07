@@ -90,7 +90,7 @@ func CanWinNext(board string, symbol byte) (bool, [3]int) {
 	return false, parr //can't win
 }
 
-func isFree(board string, pos int) bool {
+func IsFree(board string, pos int) bool {
 
 	switch {
 	case pos > 10:
