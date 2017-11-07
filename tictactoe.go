@@ -90,11 +90,20 @@ func CanWinNext(board string, symbol byte) (bool, [3]int) {
 	return false, parr //can't win
 }
 
-func CanPlayCenter(board string) bool {
-	const CENTER = 5
-	if board[CENTER] == '-' {
+func isFree(board string, pos int) bool {
+
+	switch {
+	case pos > 10:
+		return false
+	case pos < 0:
+		return false
+	case pos == 3:
+		return false
+	case pos == 7:
+		return false
+	case board[pos] == '-':
 		return true
-	} else {
+	default:
 		return false
 	}
 }
