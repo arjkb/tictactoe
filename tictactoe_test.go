@@ -172,6 +172,35 @@ func TestMakeMove(t *testing.T) {
 	}
 }
 
+func TestIsFree(t *testing.T) {
+	tests := []struct {
+		brd  string
+		pos  int
+		want bool
+	}{
+		{"X-X|-OO|X-X", -1, false},
+		{"X-X|-OO|X-X", 0, false},
+		{"X-X|-OO|X-X", 1, true},
+		{"X-X|-OO|X-X", 2, false},
+		{"X-X|-OO|X-X", 3, false},
+		{"X-X|-OO|X-X", 4, true},
+		{"X-X|-OO|X-X", 5, false},
+		{"X-X|-OO|X-X", 6, false},
+		{"X-X|-OO|X-X", 7, false},
+		{"X-X|-OO|X-X", 8, false},
+		{"X-X|-OO|X-X", 9, true},
+		{"X-X|-OO|X-X", 10, false},
+		{"X-X|-OO|X-X", 11, false},
+		{"X-X|-OO|X-X", 12, false},
+	}
+
+	for _, test := range tests {
+		if got := isFree(test.brd, test.pos); got != test.want {
+			t.Errorf("isFree(%v, %v) got=%v, want=%v", test.brd, test.pos, got, test.want)
+		}
+	}
+}
+
 func TestHasWon(t *testing.T) {
 	winningBoards := map[string]byte{
 		"X--|X--|X--": 'X',
