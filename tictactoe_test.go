@@ -162,6 +162,7 @@ func TestMakeMove(t *testing.T) {
 		want string
 	}{
 		{"X-X|-OO|X-X", 4, 'X', "X-X|XOO|X-X"},
+		{"X-X|-OO|X-X", 4, 'O', "X-X|OOO|X-X"},
 	}
 
 	for _, test := range tests {
