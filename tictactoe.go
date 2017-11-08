@@ -2,15 +2,16 @@ package tictactoe
 
 import (
 	"fmt"
+	"math/rand"
 	"strings"
 )
 
 const (
-	CLIENTWON = "client won"
-	SERVERWON = "server won"
+	CLIENTWON    = "client won"
+	SERVERWON    = "server won"
 	CLIENTSYMBOL = 'X'
 	SERVERSYMBOL = 'O'
-	TIE = "tie"
+	TIE          = "tie"
 )
 
 var WinPatterns [][]int
@@ -76,10 +77,10 @@ func IsWinnable(board string, my_symbol byte, indices [3]int) (bool, error) {
 	return false, nil
 }
 
-func CanWinNext(board string, symbol byte) (bool, [3]int)  {
+func CanWinNext(board string, symbol byte) (bool, [3]int) {
 	var parr [3]int
-	for _, pslice := range WinPatterns	{
-		copy(parr[:],pslice) // convert slice to array
+	for _, pslice := range WinPatterns {
+		copy(parr[:], pslice) // convert slice to array
 		win, _ := IsWinnable(board, symbol, parr)
 		if win {
 			return win, parr
@@ -87,6 +88,35 @@ func CanWinNext(board string, symbol byte) (bool, [3]int)  {
 	}
 
 	return false, parr //can't win
+}
+
+func IsFree(board string, pos int) bool {
+
+	switch {
+	case pos > 10:
+		return false
+	case pos < 0:
+		return false
+	case pos == 3:
+		return false
+	case pos == 7:
+		return false
+	case board[pos] == '-':
+		return true
+	default:
+		return false
+	}
+}
+
+func MakeMove(board string, pos int, symbol byte) (string, error) {
+	boardBytes := []byte(board)
+
+	if board[pos] != '-' {
+		return "", fmt.Errorf("pos %v is not free", pos)
+	}
+
+	boardBytes[pos] = symbol
+	return string(boardBytes), nil
 }
 
 func GetMoveDifference(prev string, curr string) (int, error) {
@@ -147,14 +177,27 @@ func BlockWinMove(board string, move [3]int, symbol byte) (string, error) {
 func MakeRandomMove(board string, move []int, symbol byte) (string, error) {
 	boardBytes := []byte(board)
 
-	pos, err := getEmptyPos(board, move)
-	if err != nil {
-		return "", fmt.Errorf("MakeRandomMove(): %v", err)
+	emptyPositions := getEmptyPosList(board)
+	if emptyPositions == nil {
+		return "", fmt.Errorf("MakeRandomMove(): no empty positions")
 	}
 
+	rand.Seed(200)
+
+	pos := emptyPositions[rand.Intn(len(emptyPositions))]
 	boardBytes[pos] = symbol
 
 	return string(boardBytes), nil
+}
+
+func getEmptyPosList(board string) []int {
+	var emptyPos []int
+	for i, ch := range board {
+		if ch == '-' {
+			emptyPos = append(emptyPos, i)
+		}
+	}
+	return emptyPos
 }
 
 func getEmptyPos(board string, indices []int) (int, error) {
