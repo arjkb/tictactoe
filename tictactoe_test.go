@@ -64,6 +64,25 @@ func TestGetEmptyPosList(t *testing.T) {
 	}
 }
 
+func TestIsAnyFree(t *testing.T)  {
+	tests := []struct	{
+		board string
+		want bool
+	}	{
+		{"-OX|-X-|O--", true},
+		{"---|---|---", true},
+		{"OXO|-OX|XXO", true},
+		{"OXO|XOX|XXO", false},
+	}
+
+	for _, test := range tests	{
+		if got := IsAnyFree(test.board); got != test.want	{
+			t.Errorf("IsAnyFree(%q) = %v", test.board, got)
+		}
+	}
+
+}
+
 func TestIsWinnable(t *testing.T) {
 	tests := []struct {
 		brd  string
