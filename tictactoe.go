@@ -190,6 +190,14 @@ func MakeRandomMove(board string, move []int, symbol byte) (string, error) {
 	return string(boardBytes), nil
 }
 
+func IsAnyFree(board string) bool {
+	if strings.Contains(board, "-")	{
+		return true
+	} else {
+		return false
+	}
+}
+
 func getEmptyPosList(board string) []int {
 	var emptyPos []int
 	for i, ch := range board {
