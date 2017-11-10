@@ -145,7 +145,7 @@ func MakeWinMove(board string, move [3]int, symbol byte) (string, error) {
 		return "", fmt.Errorf("MakeWinMove() IsWinnable(%v, %q, %v)=%v", board, symbol, move, winnable)
 	}
 
-	pos, err := getEmptyPos(board, move[:])
+	pos, err := GetEmptyPos(board, move[:])
 	if err != nil {
 		return "", fmt.Errorf("MakeWinMove(): %v", err)
 	}
@@ -164,7 +164,7 @@ func BlockWinMove(board string, move [3]int, symbol byte) (string, error) {
 		return "", fmt.Errorf("BlockWinMove() IsWinnable(%v, %q, %v)=%v", board, symbol, move, winnable)
 	}
 
-	pos, err := getEmptyPos(board, move[:])
+	pos, err := GetEmptyPos(board, move[:])
 	if err != nil {
 		return "", fmt.Errorf("BlockWinMove(): %v", err)
 	}
@@ -200,7 +200,7 @@ func getEmptyPosList(board string) []int {
 	return emptyPos
 }
 
-func getEmptyPos(board string, indices []int) (int, error) {
+func GetEmptyPos(board string, indices []int) (int, error) {
 	for _, index := range indices {
 		if board[index] == '-' {
 			return index, nil

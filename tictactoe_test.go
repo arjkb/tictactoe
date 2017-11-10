@@ -45,7 +45,7 @@ func TestIsValid(t *testing.T) {
 	}
 }
 
-func TestGetEmptyPos(t *testing.T) {
+func TestGetEmptyPosList(t *testing.T) {
 	tests := []struct {
 		board string
 		want  []int
